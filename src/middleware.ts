@@ -1,7 +1,22 @@
-import { authMiddleware } from "@clerk/nextjs";
+import { withClerkMiddleware } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server'
 
-export default authMiddleware();
+export default withClerkMiddleware(() => {
+  console.log('middleware running...')
+  return NextResponse.next()
+})
 
 export const config = {
-  matcher: ["/((?!.*\\..*|_next).*)"],
-};
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - /api/trpc (tRPC API)
+     * - _next
+     * - static (static files)
+     * - favicon.ico (favicon file)
+     * - public folder
+     */
+    '/(.*?trpc.*?|(?!static|.*\\..*|_next|favicon.ico).*)',
+    '/',
+  ],
+}
