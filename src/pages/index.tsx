@@ -10,11 +10,23 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { type NextPage } from 'next'
 import { type RouterOutputs } from '~/utils/api'
 import { LoadingPage } from '~/components/loading'
+import { useState } from 'react'
 
 dayjs.extend(relativeTime)
 
 const CreatePostWizard = () => {
   const { user } = useUser()
+
+  const [input, setInput] = useState('')
+
+  const ctx = api.useContext()
+
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: () => {
+      setInput('')
+      void ctx.posts.getAll.invalidate() // Invalidate the cache to refetch the posts
+    },
+  })
 
   if (!user) return null
 
@@ -30,7 +42,12 @@ const CreatePostWizard = () => {
       <input
         placeholder="Type some emojis!"
         className="bg-transparent grow outline-none"
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        disabled={isPosting}
       />
+      <button onClick={() => mutate({ content: input })}>Post</button>
     </div>
   )
 }
@@ -56,7 +73,7 @@ const PostsView = (props: PostWithUser) => {
           <span>·</span>
           <span className="font-thin">{dayjs(post.createdAt).fromNow()}</span>
         </div>
-        <span>{post.content}</span>
+        <span className="text-xl">{post.content}</span>
       </div>
     </div>
   )
@@ -67,7 +84,12 @@ const Feed = () => {
 
   if (postsLoading) return <LoadingPage />
 
-  if (!data) return <div>Something went wrong</div>
+  if (!data)
+    return (
+      <div className="flex justify-center pt-6 text-slate-300">
+        <div>Something went wrong</div>
+      </div>
+    )
 
   return (
     <div className="flex flex-col">
@@ -99,8 +121,8 @@ const Home: NextPage = () => {
             {!isSignedIn && <SignInButton />}
             {isSignedIn && <CreatePostWizard />}
             {/* {user.isSignedIn && <UserButton />} */}
-            <Feed />
           </div>
+          <Feed />
         </div>
       </main>
     </>
