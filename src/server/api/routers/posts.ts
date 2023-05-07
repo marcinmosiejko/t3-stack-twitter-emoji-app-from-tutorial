@@ -1,6 +1,5 @@
 import { clerkClient } from '@clerk/nextjs'
 import { type User } from '@clerk/nextjs/dist/server/clerkClient'
-import { TRPCClientError } from '@trpc/client'
 import { TRPCError } from '@trpc/server'
 import { z } from 'zod'
 import {
@@ -43,7 +42,7 @@ export const postsRouter = createTRPCRouter({
         post,
         author: {
           ...author,
-          username: author.username || 'unknown', // necessary to put here instead above so that typescript to recognizes username's type as string instead of string | undefined
+          username: author.username || 'unknown', // necessary to put here instead above so that typescript recognizes username's type as string instead of string | undefined
         },
       }
     })
