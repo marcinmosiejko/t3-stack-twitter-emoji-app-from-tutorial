@@ -18,7 +18,7 @@ dayjs.extend(relativeTime)
 const CreatePostWizard = () => {
   const { user } = useUser()
 
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('') // better to use a form library like formik or react-hook-form
 
   const ctx = api.useContext()
 
