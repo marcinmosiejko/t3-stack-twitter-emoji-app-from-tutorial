@@ -8,12 +8,12 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 import { type NextPage } from 'next'
-import { type RouterOutputs } from '~/utils/api'
 import { LoadingPage, LoadingSpinner } from '~/components/loading'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import Link from 'next/link'
+
 import { PageLayout } from '~/components/layout'
+import { PostView } from '~/components/postview'
 
 dayjs.extend(relativeTime)
 
@@ -83,39 +83,6 @@ const CreatePostWizard = () => {
   )
 }
 
-type PostWithUser = RouterOutputs['posts']['getAll'][number]
-const PostsView = (props: PostWithUser) => {
-  const { post, author } = props
-  return (
-    <div
-      key={post.id}
-      className="border-b border-slate-400 p-4 flex gap-5 items-center"
-    >
-      <Link href={`/@${author.username}`}>
-        <Image
-          src={author.profileImageUrl}
-          alt={`@${author.username}'s profile picture`}
-          className="h-10 w-10 rounded-full"
-          width={32}
-          height={32}
-        />
-      </Link>
-      <div className="flex flex-col">
-        <div className="flex text-slate-300 gap-1">
-          <Link href={`/@${author.username}`}>
-            <span>{`@${author.username}`}</span>
-          </Link>
-          <span>·</span>
-          <Link href={`/post/@${post.id}`}>
-            <span className="font-thin">{dayjs(post.createdAt).fromNow()}</span>
-          </Link>
-        </div>
-        <span className="text-xl">{post.content}</span>
-      </div>
-    </div>
-  )
-}
-
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery()
 
@@ -131,7 +98,7 @@ const Feed = () => {
   return (
     <div className="flex flex-col">
       {data?.map((fullPost) => (
-        <PostsView {...fullPost} key={fullPost.post.id} />
+        <PostView {...fullPost} key={fullPost.post.id} />
       ))}
     </div>
   )
