@@ -1,28 +1,33 @@
-# Create T3 App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-## What's next? How do I make an app with this?
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+<a name="readme-top"></a>
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+     <a href="https://t3-stack-tutorial-amber.vercel.app/">
+    <img src="https://create-t3-app-docs.vercel.app/t3-logo.png" alt="Logo" width="64" height="64">
+  </a>
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+<h3 align="center">Twitter Emojis App</h3>
 
-## Learn More
+  <p align="center">
+    done with <a href="https://www.youtube.com/watch?v=YkOSUVzOAA4&ab_channel=Theo-t3%E2%80%A4gg">T3 stack tutorial</a>
+    <br />
+    <br />
+    <a href="https://t3-stack-tutorial-amber.vercel.app/">View Demo</a>
+  </p>
+</div>
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+<br />
+<br />
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+<!-- FEATURES -->
+## Features
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+* post tweets with emojis
+* full auth with Clerk
+* rate limiter to avoid spam
 
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+<br />
